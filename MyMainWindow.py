@@ -27,13 +27,10 @@ class MyMainWindow(QMainWindow):
             return
 
         self.image = QImage(fileName)
-        self.pixmap = QPixmap()
-        self.pixmap.fromImage(self.image)
-        self.draw_widget.setPixmap(self.pixmap)
 
+        self.pixmap = QPixmap(self.image)
+
+        self.draw_widget.setPixmap(self.pixmap)
         self.setBaseSize(self.pixmap.size())
 
         print("done.")
-
-
-
