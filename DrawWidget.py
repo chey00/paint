@@ -34,7 +34,6 @@ class DrawWidget(QLabel):
 
         if self.pos:
             painter.setPen(self.color)
-            painter.fi
             painter.drawEllipse(self.pos, 20, 20)
 
         painter.end()
@@ -52,5 +51,10 @@ class DrawWidget(QLabel):
         file_name, _ = QFileDialog.getSaveFileName(self, "Bild speichern", "./", "Bilder (*.png, *.jpg)")
 
         if file_name:
-            if self.image.save(file_name):
+            print(self.picture().size())
+            my_pixmap = QPixmap(self.pixmap())
+            print(my_pixmap.size())
+            my_image = my_pixmap.toImage()
+
+            if my_image.save(file_name):
                 print("Success")
