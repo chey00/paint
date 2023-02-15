@@ -1,5 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QFileDialog
-from PySide6.QtGui import QPixmap, QImage
+from PySide6.QtWidgets import QMainWindow, QMenuBar
 from DrawWidget import DrawWidget
 
 class MyMainWindow(QMainWindow):
@@ -13,24 +12,11 @@ class MyMainWindow(QMainWindow):
         self.menu_bar = QMenuBar(None)
 
         self.fileMenu = self.menu_bar.addMenu("Bilder")
-        self.action_load_file = self.fileMenu.addAction("Bild öffnen", self.load_file)
-        self.action_save_file = self.fileMenu.addAction("Bild speichern")
+        self.action_load_file = self.fileMenu.addAction("Bild öffnen", self.draw_widget.load_file)
+        self.action_save_file = self.fileMenu.addAction("Bild speichern", self.draw_widget.save_file)
+
+        self.fileMenu.addAction("Farbe", self.draw_widget.setColor)
 
         self.setMenuBar(self.menu_bar)
         self.setWindowTitle("M$ P41nt")
         self.setCentralWidget(self.draw_widget)
-
-    def load_file(self):
-        fileName, _ = QFileDialog.getOpenFileName(self, "Bild auswählen", "Bilder (*.png, *.jpg)")
-
-        if fileName == "":
-            return
-
-        self.image = QImage(fileName)
-
-        self.pixmap = QPixmap(self.image)
-
-        self.draw_widget.setPixmap(self.pixmap)
-        self.setBaseSize(self.pixmap.size())
-
-        print("done.")
