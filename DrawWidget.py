@@ -15,6 +15,8 @@ class DrawWidget(QLabel):
         self.color = QColor("green")
         self.pixmap_from_image = None
 
+        self.painter = QPainter()
+
     def setColor(self):
         selected_color = QColorDialog.getColor(self.color, self, "Farbe wählen")
 
@@ -27,16 +29,19 @@ class DrawWidget(QLabel):
         self.update()
 
     def paintEvent(self, ev: QPaintEvent) -> None:
-        painter = QPainter(self)
+        self.painter.begin(self)
+        #self.painter.restore()
 
         if self.pixmap_from_image:
-            painter.drawPixmap(QPoint(1, 1), self.pixmap_from_image)
+            self.painter.drawPixmap(QPoint(1, 1), self.pixmap_from_image)
 
         if self.pos:
-            painter.setPen(self.color)
-            painter.drawEllipse(self.pos, 20, 20)
+            self.painter.setPen(self.color)
+            self.painter.drawEllipse(self.pos, 20, 20)
 
-        painter.end()
+        #self.painter.save()
+        self.painter.end()
+
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Bild auswählen", "Bilder (*.png, *.jpg)")
@@ -48,13 +53,9 @@ class DrawWidget(QLabel):
             self.update()
 
     def save_file(self):
-        file_name, _ = QFileDialog.getSaveFileName(self, "Bild speichern", "./", "Bilder (*.png, *.jpg)")
-
-        if file_name:
-            print(self.picture().size())
-            my_pixmap = QPixmap(self.pixmap())
-            print(my_pixmap.size())
-            my_image = my_pixmap.toImage()
-
-            if my_image.save(file_name):
-                print("Success")
+        self.
+        #file_name, _ = QFileDialog.getSaveFileName(self, "Bild speichern", "./", "Bilder (*.png, *.jpg)")
+        file_name = "/Users/dozent/test.jpg"
+        print("DO")
+        if self.image.save(file_name):
+            print("Done")
