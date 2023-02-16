@@ -10,14 +10,15 @@ class MyMainWindow(QMainWindow):
         self.menu_bar = QMenuBar(None)
 
         self.fileMenu = self.menu_bar.addMenu("Bilder")
+
         self.action_load_file = self.fileMenu.addAction("Bild öffnen", self.load_file)
         self.action_save_file = self.fileMenu.addAction("Bild speichern", self.save_file)
 
         self.fileMenu.addAction("Farbe", self.setColor)
 
         self.setMenuBar(self.menu_bar)
+
         self.setWindowTitle("M$ P41nt")
-        self.setCentralWidget(self.draw_widget)
 
         self.pos = None
         self.color = QColor("green")
@@ -25,6 +26,7 @@ class MyMainWindow(QMainWindow):
 
         self.draw_widget = QLabel(self)
         self.draw_widget.setPixmap(self.canvas)
+        self.setCentralWidget(self.draw_widget)
 
     def setColor(self):
         selected_color = QColorDialog.getColor(self.color, self, "Farbe wählen")
